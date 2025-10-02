@@ -123,7 +123,7 @@ def main():
     # print('gemini ingredients: ', sanitised_ingredients)
 
     total_calories = fetch_nutrition(sanitised_ingredients)
-    print(f"Total calories in the {title} is", total_calories)
+    print(f"Total kilo calories in the {title} is", total_calories)
     
 
 if __name__ == "__main__":
