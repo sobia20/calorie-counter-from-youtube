@@ -2,7 +2,7 @@
 name = "youtube-python"
 version = "0.1.0"
 description = ""
-authors = ["Sobia Khalid <sobia.khalid@colorifix.com>"]
+authors = ["Sobia Khalid <sobia.khalid.2126@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
