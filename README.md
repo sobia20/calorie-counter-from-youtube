@@ -5,7 +5,6 @@
 
 A tool that estimates the calorie content of a dish from **Food Fusion** YouTube videos.
 
----
 
 ## 🧾 Table of Contents
 
@@ -14,7 +13,7 @@ A tool that estimates the calorie content of a dish from **Food Fusion** YouTube
 - [Installation](#installation)  
 - [Usage](#usage)   
 
----
+
 
 ## About
 
@@ -26,7 +25,7 @@ This project is designed to parse a recipe video (specifically from the *Food Fu
 
 The tool is still experimental and meant for rough estimates—not clinical accuracy.
 
----
+
 
 ## Features
 
@@ -36,7 +35,7 @@ The tool is still experimental and meant for rough estimates—not clinical accu
 - Clean, modular Python code  
 - Easy to extend or integrate with other data sources
 
----
+
 
 ## Installation
 
