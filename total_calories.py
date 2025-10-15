@@ -60,7 +60,38 @@ def fetch_nutrition(ingredients: str) -> int:
 def extract_ingredients(ingredients: str) -> str:
     """Gives a list of ingredients to Gemini for sanitising and returns the sanitised response"""
     
-    prompt = f"Extract the english part of the ingredients and their amount. Bring the quantity before the ingredient. Correct the tbs to tbsp. I want the ingredients to be seperated by ' and '. Ignore any food that doesn't have quantity. An example of this is; '2 tbsp cooking oil and 1 tbsp Ginger garlic paste'  \n ------ {ingredients} \n ------"
+    prompt = """
+    You are a data-cleaning assistant. You will be given a list of cooking ingredients that include English and non-English names together with quantities. Your job is to extract only the English ingredient names and their quantities in a consistent, clean format for Nutritionix API parsing.
+
+    Follow these strict rules:
+    1. Output Format:
+    - Each ingredient must follow this structure: {{quantity}} {{unit}} {{ingredient}}
+    - Separate all ingredients with ' and ' (exactly lowercase 'and' with spaces).
+    2. Quantity Rules:
+    - Always put the quantity before the ingredient name.
+    - Convert all 'tbs' or 'tbs.' to 'tbsp'.
+    - If a range is given (e.g., '2-3 tbsp'), use the higher number (e.g., '3 tbsp').
+    - Ignore any ingredient that does not have a clear numeric quantity.
+    - Keep fractional amounts (e.g., '½ tsp' → '0.5 tsp').
+    3. Ingredient Rules:
+    - Use only the English name (e.g., 'Lehsan (Garlic)' → 'Garlic').
+    - Remove any extra parentheses, Urdu/Hindi names, or descriptors not part of the core English ingredient.
+    4. Output Consistency:
+    - No bullet points, commas, or newlines — only ' and ' as separators.
+    - Output must be a single clean line.
+    5. Example:
+    - Input:
+        -Lehsan (Garlic) 10-12 cloves
+        -Pyaz (Onion) sliced 1 small
+        -Cooking oil 2-3 tbs
+        -Baisan (Gram flour) roasted 1 tbs
+    - Output:
+        12 cloves Garlic and 1 small Onion and 3 tbsp Cooking oil and 1 tbsp Gram flour
+
+    Now clean and convert the following text accordingly:
+
+    {}
+    """.format(ingredients)
     
     client = genai.Client(api_key=config_loader.GEMINI_API_KEY)
     response = client.models.generate_content(
